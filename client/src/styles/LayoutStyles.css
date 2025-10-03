@@ -1,0 +1,119 @@
+/* ===== Base Layout ===== */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: #1f2937;
+  color: #fff;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1000;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar .logo {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+}
+
+.logo-icon {
+  font-size: 22px;
+  margin-right: 8px;
+}
+
+.menu {
+  margin-top: 20px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  text-decoration: none; /* important for Link */
+  color: inherit; /* so link text uses normal color */
+  cursor: pointer;
+}
+
+.menu-item.active {
+  background-color: #464545; 
+}
+.menu-item:hover {
+  background: #374151;
+}
+
+.menu-icon {
+  margin-right: 10px;
+}
+
+.menu-link {
+  text-decoration: none;
+  color: #fff;
+}
+
+/* ===== Header ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.menu-toggle {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.bell-icon {
+  font-size: 20px;
+  margin-right: 12px;
+}
+
+.user-name {
+  font-weight: 500;
+}
+
+/* ===== Content ===== */
+.content {
+  flex-grow: 1;
+  background: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+}
+
+.body-content {
+  padding: 20px;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: -240px;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar.mobile-open {
+    left: 0;
+  }
+
+  .layout {
+    flex-direction: column;
+  }
+
+  .content {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+}

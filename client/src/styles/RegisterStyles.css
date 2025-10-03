@@ -1,0 +1,158 @@
+/* ===============================
+   Global Reset
+================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  overflow-x: hidden; /* ✅ Prevents horizontal scroll */
+}
+
+/* ===============================
+   Form Container
+================================= */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+/* ===============================
+   Register & Login Form
+================================= */
+.register-form {
+  background: #fff;
+  padding: 40px 35px;
+  border-radius: 16px;
+  width: 50%;            /* ✅ Wider on large screens */
+  max-width: 700px;      /* ✅ Absolute limit */
+  min-width: 400px;      /* ✅ Avoids overly narrow forms */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.register-form:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* ===============================
+   Heading
+================================= */
+.register-form h3 {
+  font-size: 28px;
+  text-align: center;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* ===============================
+   Input Fields
+================================= */
+.register-form input {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.register-form input:focus {
+  border-color: #6e8efb;
+  box-shadow: 0 0 8px rgba(110, 142, 251, 0.3);
+}
+
+/* ===============================
+   Link Styling
+================================= */
+.register-form a {
+  display: inline-block;
+  font-size: 14px;
+  margin-top: 8px;
+  color: #6e8efb;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.register-form a:hover {
+  color: #5b75e6;
+  text-decoration: underline;
+}
+
+/* ===============================
+   Submit Button
+================================= */
+.register-form button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.register-form button:hover {
+  background: linear-gradient(135deg, #5b75e6, #9368d8);
+  transform: scale(1.03);
+}
+
+/* ===============================
+   RESPONSIVENESS
+================================= */
+
+/* Tablets & Medium Screens */
+@media (max-width: 1024px) {
+  .register-form {
+    width: 70%;
+    max-width: 600px;
+    padding: 35px 30px;
+  }
+}
+
+/* Small Screens (Mobiles) */
+@media (max-width: 768px) {
+  .register-form {
+    width: 90%;
+    max-width: 500px;
+    padding: 30px 25px;
+  }
+}
+
+/* Extra Small Screens */
+@media (max-width: 480px) {
+  .register-form {
+    width: 95%;
+    min-width: unset;
+    padding: 25px 20px;
+  }
+
+  .register-form h3 {
+    font-size: 22px;
+  }
+
+  .register-form button {
+    font-size: 15px;
+    padding: 12px;
+  }
+}
