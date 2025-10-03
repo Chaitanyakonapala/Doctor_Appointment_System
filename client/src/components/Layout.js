@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
   const handleLogout = () => {
     localStorage.clear();
     toast.success("Logged Out Successfully!");
-    navigate("/login");
+    navigate("/");
   };
 
   const doctorMenu = [
