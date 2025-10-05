@@ -1,22 +1,12 @@
 import crypto from "crypto";
 import User from "../models/UserModules.js";
 import dotenv from "dotenv";
-import nodemailer from "nodemailer";
+import sgMail from "@sendgrid/mail";
 
 dotenv.config();
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const otpStore = {}; // In-memory OTP store
-
-// Create Nodemailer transporter for SendGrid
-const transporter = nodemailer.createTransport({
-  host: "smtp.sendgrid.net",
-  port: 587, // or 2525 if 587 is blocked
-  secure: false,
-  auth: {
-    user: "apikey", // literally 'apikey'
-    pass: process.env.SENDGRID_API_KEY,
-  },
-});
 
 // Send OTP
 export const sendOtp = async (req, res) => {
@@ -29,19 +19,19 @@ export const sendOtp = async (req, res) => {
       return res.status(400).json({ message: "Email already registered" });
     }
 
-    // Generate 6-digit OTP
     const otp = crypto.randomInt(100000, 999999);
 
-    // Save OTP in memory (expires in 5 mins)
     otpStore[email] = { otp, expires: Date.now() + 5 * 60 * 1000 };
 
-    // Send OTP email using SendGrid
-    await transporter.sendMail({
-      from: process.env.FROM_EMAIL, // Verified sender
+    // Send email using SendGrid API
+    const msg = {
       to: email,
+      from: process.env.FROM_EMAIL,
       subject: "Your OTP Verification Code",
       html: `<h2>Your OTP: <b>${otp}</b></h2><p>Valid for 5 minutes.</p>`,
-    });
+    };
+
+    await sgMail.send(msg);
 
     res.json({ success: true, message: "OTP sent successfully" });
   } catch (error) {
@@ -67,7 +57,6 @@ export const verifyOtp = async (req, res) => {
       return res.status(400).json({ message: "Invalid OTP" });
     }
 
-    // OTP valid → Mark user as verified if exists, else proceed to signup
     delete otpStore[email];
     return res.json({ success: true, message: "OTP verified successfully" });
   } catch (error) {
