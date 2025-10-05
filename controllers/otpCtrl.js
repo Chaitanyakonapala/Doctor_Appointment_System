@@ -1,31 +1,18 @@
-import nodemailer from "nodemailer";
 import crypto from "crypto";
 import User from "../models/UserModules.js";
 import dotenv from "dotenv";
+import { Resend } from "resend";
+
 dotenv.config();
 
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-const otpStore = {}; 
-
-// Configure Nodemailer
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,          // TLS
-  secure: false,      // use TLS
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // must be App Password if 2FA enabled
-  },
-  requireTLS: true,
-  connectionTimeout: 10000, // 10 seconds
-});
-
+const otpStore = {}; // In-memory OTP store
 
 // Send OTP
 export const sendOtp = async (req, res) => {
   try {
     const { email } = req.body;
-
     if (!email) return res.status(400).json({ message: "Email is required" });
 
     // Check if user already exists and is verified
@@ -40,10 +27,9 @@ export const sendOtp = async (req, res) => {
     // Save OTP in memory (expires in 5 mins)
     otpStore[email] = { otp, expires: Date.now() + 5 * 60 * 1000 };
 
-  
-    // Send Email
-    await transporter.sendMail({
-      from: `"Doc Appointment" <${process.env.EMAIL_USER}>`,
+    // Send Email via Resend
+    await resend.emails.send({
+      from: "Doc Appointment <onboarding@resend.dev>", // customize if you want
       to: email,
       subject: "Your OTP Verification Code",
       html: `<h2>Your OTP: <b>${otp}</b></h2><p>Valid for 5 minutes.</p>`,
