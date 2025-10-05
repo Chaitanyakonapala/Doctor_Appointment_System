@@ -1,13 +1,22 @@
 import crypto from "crypto";
 import User from "../models/UserModules.js";
 import dotenv from "dotenv";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
 dotenv.config();
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const otpStore = {}; // In-memory OTP store
+
+// Create Nodemailer transporter for SendGrid
+const transporter = nodemailer.createTransport({
+  host: "smtp.sendgrid.net",
+  port: 587, // or 2525 if 587 is blocked
+  secure: false,
+  auth: {
+    user: "apikey", // literally 'apikey'
+    pass: process.env.SENDGRID_API_KEY,
+  },
+});
 
 // Send OTP
 export const sendOtp = async (req, res) => {
@@ -15,7 +24,6 @@ export const sendOtp = async (req, res) => {
     const { email } = req.body;
     if (!email) return res.status(400).json({ message: "Email is required" });
 
-    // Check if user already exists and is verified
     const existingUser = await User.findOne({ email });
     if (existingUser && existingUser.verified) {
       return res.status(400).json({ message: "Email already registered" });
@@ -27,9 +35,9 @@ export const sendOtp = async (req, res) => {
     // Save OTP in memory (expires in 5 mins)
     otpStore[email] = { otp, expires: Date.now() + 5 * 60 * 1000 };
 
-    // Send Email via Resend
-    await resend.emails.send({
-      from: "Doc Appointment <chaitanyakonapala1@gmail.com>", // customize if you want
+    // Send OTP email using SendGrid
+    await transporter.sendMail({
+      from: process.env.FROM_EMAIL, // Verified sender
       to: email,
       subject: "Your OTP Verification Code",
       html: `<h2>Your OTP: <b>${otp}</b></h2><p>Valid for 5 minutes.</p>`,
