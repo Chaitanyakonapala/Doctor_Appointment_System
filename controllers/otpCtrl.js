@@ -29,7 +29,7 @@ export const sendOtp = async (req, res) => {
 
     // Send Email via Resend
     await resend.emails.send({
-      from: "Doc Appointment <onboarding@resend.dev>", // customize if you want
+      from: "Doc Appointment <chaitanyakonapala1@gmail.com>", // customize if you want
       to: email,
       subject: "Your OTP Verification Code",
       html: `<h2>Your OTP: <b>${otp}</b></h2><p>Valid for 5 minutes.</p>`,
