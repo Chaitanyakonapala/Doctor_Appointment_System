@@ -36,7 +36,6 @@ const ApplyDoctor = () => {
       }
     } catch (error) {
       dispatch(hideLoading());
-      console.log(error);
       message.error('Something went wrong');
     }
   };

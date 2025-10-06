@@ -84,13 +84,6 @@ const updateProfileController = async (req, res) => {
   const doctorAppointmentsController = async(req,res)=>{
     try {
       const doctor = await doctorModel.findOne({userId : req.body.userId});
-      // if (!doctor) {
-      //   // console.log("No doctor found with userId:", userId);
-      //   return res.status(404).send({
-      //     success: false,
-      //     message: "Doctor not found",
-      //   });
-      // }
       const appointments = await appointmentModel.find({doctorId : doctor._id});
       res.status(200).send({
         success : true,

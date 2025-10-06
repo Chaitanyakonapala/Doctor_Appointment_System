@@ -43,14 +43,12 @@ const Profile = () => {
       );
       dispatch(hideLoading());
   
-      console.log("Profile update response:", res);
-  
       if (res.data.success) {
         setDoctor(res.data.data);
         setTimeout(() => {
           toast.success("Profile updated successfully!"); 
         }, 100);
-        navigate("/");
+        navigate("/home");
       } else {
         toast.error(res.data.message || "Something went wrong!");
       }

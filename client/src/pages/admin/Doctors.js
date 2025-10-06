@@ -36,7 +36,6 @@ const Doctors = () => {
         );
         setDoctors(updatedDoctors);
         toast.success('Updated Successfully')
-        // window.location.reload();
       }
     } catch (error) {
       console.log(error);

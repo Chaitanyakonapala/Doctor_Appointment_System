@@ -228,11 +228,10 @@ const bookingAvailabiltyController = async (req, res) => {
       });
     }
 
-    const [availableFrom, availableTo] = doctor.timings; // Assuming timings is an array like ['09:00', '17:00']
+    const [availableFrom, availableTo] = doctor.timings; 
     const inputTime = moment(time, "HH:mm");
     const fromTime = inputTime.clone().subtract(1, "hours");
     const toTime = inputTime.clone().add(1, "hours");
-    console.log(inputTime);
 
     // Step 2: Validate Input Time Against Availability
     const availableStart = moment(availableFrom, "HH:mm");

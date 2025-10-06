@@ -116,16 +116,11 @@ const BookingPage = () => {
       // Check for success
       if (res.data.success) {
         setIsAvailable(true);
-        console.log("Slot is Available");
         toast.success("Slot is Available");
       } else {
-        // If not available, display the message from the response
-        console.log("Slot is Not Available:", res.data.message);
         toast.error(res.data.message || "Slot is not Available"); // Fallback message if no specific message
       }
     } catch (error) {
-      dispatch(hideLoading());
-      console.log("Error during availability check", error);
       toast.error("Error checking availability");
     }
   };

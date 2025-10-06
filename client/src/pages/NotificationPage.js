@@ -39,7 +39,6 @@ const NotificationPage = () => {
       }
     } catch (error) {
       dispatch(hideLoading());
-      console.log(error);
       message.error("Something went wrong");
     }
   };
@@ -87,7 +86,6 @@ const NotificationPage = () => {
             <div className="card" style={{ cursor: "pointer" }} key={index}>
               <div
                 className="card-text"
-                // onClick={() => navigate(notificationMsg.onClickPath)}
               >
                 {notificationMsg.message}
               </div>
@@ -114,7 +112,6 @@ const NotificationPage = () => {
             <div className="card" style={{ cursor: "pointer" }} key={index}>
               <div
                 className="card-text"
-                // onClick={() => navigate(notificationMsg.onClickPath)}
               >
                 {notificationMsg.message}
               </div>
