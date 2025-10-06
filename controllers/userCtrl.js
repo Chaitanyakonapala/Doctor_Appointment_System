@@ -12,7 +12,6 @@ dotenv.config();
 //register callback
 const registerController = async (req, res) => {
   try {
-    console.log("Incoming register request:", req.body); // <-- Add this
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {

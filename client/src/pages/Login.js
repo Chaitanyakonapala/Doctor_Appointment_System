@@ -9,10 +9,6 @@ import { toast } from "react-toastify";
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    toast.error("Test error message"); // This should display a message
-  };
-
   const onFinishHandler = async (values) => {
     try {
       const res = await axios.post("./api/v1/user/login", values);
@@ -22,10 +18,8 @@ const Login = () => {
         navigate("/home");
       } else {
         toast.error('Invalid Username or Password')
-        console.log("Error Message:", res.data.message);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Something went wrong");
     }
   };

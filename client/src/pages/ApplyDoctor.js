@@ -29,7 +29,7 @@ const ApplyDoctor = () => {
       dispatch(hideLoading());
       if(res.data.success){
         toast.success("Applied Successfully")
-        navigate('/');
+        navigate('/home');
       }
       else{
         message.error(res.data.success);
